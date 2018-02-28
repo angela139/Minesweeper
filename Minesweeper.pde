@@ -90,7 +90,7 @@ public void displayWinningMessage()
 public void mousePressed (){
   int mX = mouseX;
   int mY = mouseY;
-  buttons[(mY)/20][(mX)/20].mousePressed();
+  buttons[(int)(mY/20)][(int)(mX/20)].mousePressed();
 }
 //end
 
