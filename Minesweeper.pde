@@ -1,4 +1,4 @@
-import de.bezier.guido.*;
+
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
@@ -12,7 +12,7 @@ void setup ()
     textAlign(CENTER,CENTER);
     
     // make the manager
-    Interactive.make( this );
+
     buttons = new MSButton [rows] [columns];
     bombs = new ArrayList <MSButton>();
     //your code to declare and initialize buttons goes here
@@ -27,7 +27,7 @@ void setup ()
     setBombs();
 }
 public void setBombs()
-{  for (int i = 0; i < 50; i++) {
+{  for (int i = 0; i < 10; i++) {
     final int r1 = (int)(Math.random()*20);
     final int r2 = (int)(Math.random()*20);
     if ((bombs.contains (buttons[r1][r2])) == false) {
@@ -42,6 +42,15 @@ public void draw ()
     background( 0 );
     if(isWon())
         displayWinningMessage();
+        
+        //new
+    for (int i = 0; i < rows; i++) {
+     for (int j = 0; j < columns; j++) {
+        buttons[i][j].draw();
+      } 
+    }
+    //end
+    
 }
 public boolean isWon()
 {  
@@ -70,11 +79,20 @@ public void displayWinningMessage()
     buttons[rows/2][(columns/2)-4].setLabel("Y");
     buttons[rows/2][(columns/2)-3].setLabel("O");
     buttons[rows/2][(columns/2-2)].setLabel("U");
+    buttons[rows/2][(columns/2-1)].setLabel("");
     buttons[rows/2][(columns/2)].setLabel("W");
     buttons[rows/2][(columns/2+1)].setLabel("I");
     buttons[rows/2][(columns/2+2)].setLabel("N");
     buttons[rows/2][(columns/2+3)].setLabel("!");
 }
+
+//new
+public void mousePressed (){
+  int mX = mouseX;
+  int mY = mouseY;
+  buttons[(mY)/20][(mX)/20].mousePressed();
+}
+//end
 
 public class MSButton
 {
@@ -93,7 +111,7 @@ public class MSButton
         y = r*height;
         label = "";
         marked = clicked = false;
-        Interactive.add( this ); // register it with the manager
+
     }
     public boolean isMarked()
     {
@@ -108,12 +126,11 @@ public class MSButton
     public void mousePressed () 
     {
       if (isLost == false) {
-        
-        //if(marked) {clicked = false;}
-        if (mouseButton == RIGHT) {
+        if (mouseButton == RIGHT && buttons[r][c].isClicked()) {
+         
+        }
+        else if (mouseButton == RIGHT) {
           marked = !marked;
-          //if (!marked && bombs.contains(this)) {clicked = false;}
-          //if (!marked && !bombs.contains(this)) {clicked = true;}
         }
         else if (marked == true) {}
         else if (bombs.contains(this)) {
@@ -127,7 +144,7 @@ public class MSButton
           clicked = true;
         }
         else {
-          //only running first case
+
           
           if (!clicked) {tileCount+=1;}
           if (tileCount == 400-bombs.size()) {displayWinningMessage();}
