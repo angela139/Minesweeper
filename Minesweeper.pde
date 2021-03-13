@@ -2,7 +2,7 @@ import de.bezier.guido.*;
 //Declare and initialize constants NUM_ROWS and NUM_COLS = 20
 public final static int NUM_ROWS = 20;
 public final static int NUM_COLS = 20;
-public final static int NUM_MINES = 50;
+public final static int NUM_MINES = 30;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 private boolean game_over = false;
@@ -137,9 +137,7 @@ public class MSButton
     {
       if (game_over == false){
         clicked = true;
-        if (mouseButton == LEFT){
-          check_tiles--;
-        }
+        check_tiles--;
         if (mouseButton == RIGHT){
           flagged = !flagged;
           if (flagged == false){
