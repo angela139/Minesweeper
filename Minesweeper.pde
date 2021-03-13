@@ -2,7 +2,7 @@ import de.bezier.guido.*;
 //Declare and initialize constants NUM_ROWS and NUM_COLS = 20
 public final static int NUM_ROWS = 20;
 public final static int NUM_COLS = 20;
-public final static int NUM_MINES = 30;
+public final static int NUM_MINES = 40;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList<MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 private boolean game_over = false;
@@ -56,6 +56,9 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
+    for (int n = -4; n < 4; n++){
+      buttons[NUM_ROWS/2][(NUM_COLS/2)+n].special = true;
+    }
     for (int j = 0; j < NUM_ROWS; j++){
       for (int i = 0; i < NUM_COLS; i++){
         if (mines.contains(buttons[j][i])){
@@ -63,9 +66,6 @@ public void displayLosingMessage()
               buttons[j][i].setLabel("x");
         }
       }
-    }
-    for (int n = -4; n < 4; n++){
-      buttons[NUM_ROWS/2][(NUM_COLS/2)+n].special = true;
     }
     buttons[NUM_ROWS/2][(NUM_COLS/2)-4].setLabel("Y");
     buttons[NUM_ROWS/2][(NUM_COLS/2)-3].setLabel("O");
@@ -90,6 +90,7 @@ public void displayWinningMessage()
     buttons[NUM_ROWS/2][(NUM_COLS/2+1)].setLabel("I");
     buttons[NUM_ROWS/2][(NUM_COLS/2+2)].setLabel("N");
     buttons[NUM_ROWS/2][(NUM_COLS/2+3)].setLabel("!"); 
+    game_over = true;
 }
 public boolean isValid(int r, int c)
 {
