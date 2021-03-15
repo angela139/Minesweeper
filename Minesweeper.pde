@@ -62,7 +62,7 @@ public void displayLosingMessage()
     for (int j = 0; j < NUM_ROWS; j++){
       for (int i = 0; i < NUM_COLS; i++){
         if (mines.contains(buttons[j][i])){
-              buttons[j][i].clicked = true;
+              buttons[j][i].isClicked(true);
               buttons[j][i].setLabel("x");
         }
       }
@@ -80,7 +80,7 @@ public void displayLosingMessage()
 public void displayWinningMessage()
 {
     for (int n = -4; n < 4; n++){
-      buttons[NUM_ROWS/2][(NUM_COLS/2)+n].special = true;
+      buttons[NUM_ROWS/2][(NUM_COLS/2)+n].isSpecial(true);
     }
     buttons[NUM_ROWS/2][(NUM_COLS/2)-4].setLabel("Y");
     buttons[NUM_ROWS/2][(NUM_COLS/2)-3].setLabel("O");
@@ -213,4 +213,12 @@ public class MSButton
     {
         return flagged;
     }
+    public void isClicked(boolean click)
+    {
+        clicked = click;
+    }
+    public void isSpecial(boolean s){
+        special = s;
+    }
+    
 }
